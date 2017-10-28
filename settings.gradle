@@ -1,3 +1,6 @@
 rootProject.name = 'atom'
+include 'homeworks/HW2'
+
+
 include 'tasks/1-in-memory-account-server'
 include 'lecture04'
