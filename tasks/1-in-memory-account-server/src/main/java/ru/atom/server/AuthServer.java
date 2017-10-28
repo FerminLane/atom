@@ -1,4 +1,4 @@
-package ru.atom.AuthServer;
+package ru.atom.server;
 
 
 import org.springframework.boot.SpringApplication;

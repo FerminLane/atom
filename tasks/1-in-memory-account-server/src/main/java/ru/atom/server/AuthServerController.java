@@ -1,8 +1,9 @@
-package ru.atom.AuthServer;
+package ru.atom.server;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 import ru.atom.Cache.User;
 
@@ -10,11 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
-@RequestMapping("/")
+
 /**
  *curl -i localhost:8080/
  **/
+
+@Controller
 public class AuthServerController {
 
     Map<String, User> database = new HashMap<String, User>();
@@ -29,19 +31,22 @@ public class AuthServerController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
-
-    public void registration(@RequestParam("Login") String login,
-                             @RequestParam("Password") String password) {
+    @ResponseBody
+    public String registration(@RequestParam("Login") String login,
+                               @RequestParam("Password") String password) {
 
         User user = new User(login, password);
         for (User list : userlist) {
             if (user.getNick().equals(list.getNick())) {
+
                 log.info("User already registered");
+                return new String("User " + login + " already registered");
             }
         }
         userlist.add(user);
         log.info("User has been registered");
-
+        return new String("User " + login + " has been registered");
     }
 
 }
+
